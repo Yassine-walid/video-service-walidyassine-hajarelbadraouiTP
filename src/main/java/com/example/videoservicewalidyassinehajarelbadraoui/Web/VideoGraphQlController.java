@@ -28,27 +28,30 @@ public class VideoGraphQlController {
     private VideoManager videoManager;
 
 
-    VideoGraphQlController(CreatorRepository creatorRepository, VideoRepository videoRepository){
+    VideoGraphQlController(CreatorRepository creatorRepository, VideoRepository videoRepository) {
         this.creatorRepository = creatorRepository;
         this.videoRepository = videoRepository;
     }
+
     @QueryMapping
-    public List<Video> videoList(){
+    public List<Video> videoList() {
         return videoRepository.findAll();
     }
+
     @QueryMapping
     public Creator creatorById(@Argument Long id) {
         return creatorRepository.findById(id)
-                .orElseThrow(()->new RuntimeException(String.format("Creator %s not found",id)));
+                .orElseThrow(() -> new RuntimeException(String.format("Creator %s not found", id)));
     }
 
     @MutationMapping
-    public Creator saveCreator(@Argument Creator creator){
-        return creatorRepository.save(creator) ;
+    public Creator saveCreator(@Argument Creator creator) {
+        return creatorRepository.save(creator);
     }
+
     @MutationMapping
-    public Video saveVideo(@Argument Video video){
-        return videoRepository.save(video) ;
+    public Video saveVideo(@Argument Video video) {
+        return videoRepository.save(video);
     }
 
     @SubscriptionMapping
